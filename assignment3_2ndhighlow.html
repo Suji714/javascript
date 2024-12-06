@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <h1>Find Second Smallest and Second Largest Numbers</h1>
+     <p>Enter a comma-separated array of numbers:</p>
+     <input type="text" id="inputArray" placeholder="e.g., 1,2,3,4,5">
+     <button onclick="displayResult()">Submit</button>
+     <div class="result" id="result"></div>
+     <script>
+        // Define the function to find the second smallest and second largest numbers
+        function Second_Greatest_Lowest(arr_num) {
+          // Sort the array in ascending order
+          arr_num.sort(function(x, y) {
+            return x - y;
+          });
+          
+          // Initialize the unique array
+          var uniqa = [arr_num[0]];
+          // Iterate through the sorted array to remove duplicates
+          for (var j = 1; j < arr_num.length; j++) {
+            if (arr_num[j - 1] !== arr_num[j]) {
+              uniqa.push(arr_num[j]);
+            }
+          }
+          // Return the second smallest and second largest values
+          var result = [uniqa[1], uniqa[uniqa.length - 2]];
+          return result.join(', ');
+        }
+        // Display the result on the web page
+        function displayResult() {
+          // Get the user input from the input field
+          const input = document.getElementById('inputArray').value;
+          // Convert the input string to an array of numbers
+          const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+          // Validate input
+          if (numbers.length < 2) {
+            document.getElementById('result').textContent = 'Please enter at least two valid numbers.';
+            return;
+          }
+          // Call the function and display the result
+          const result = Second_Greatest_Lowest(numbers);
+          document.getElementById('result').textContent = `Second Smallest and Second Largest: ${result}`;
+        }
+    </script> 
+</body>
+</html>
